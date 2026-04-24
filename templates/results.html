@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+    <title>Generated UATs</title>
+</head>
+<body>
+    <h1>Generated UATs</h1>
+
+    {% if uats and uats|length > 0 %}
+        <p>{{ uats|length }} test cases generated.</p>
+        <table border="1" cellpadding="5" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Test Case ID</th>
+                    <th>Role</th>
+                    <th>Test Case</th>
+                    <th>Test Case Description</th>
+                    <th>Steps to execute</th>
+                    <th>Expected Result(s)</th>
+                    <th>Acceptance Criteria</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for uat in uats %}
+                <tr>
+                    <td>{{ uat.test_case_id }}</td>
+                    <td>{{ uat.role }}</td>
+                    <td>{{ uat.test_case }}</td>
+                    <td>{{ uat.test_case_description }}</td>
+                    <td>
+                        <ul>
+                        {% for step in uat.steps_to_execute %}
+                            <li>{{ step }}</li>
+                        {% endfor %}
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                        {% for er in uat.expected_results %}
+                            <li>{{ er }}</li>
+                        {% endfor %}
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                        {% for ac in uat.acceptance_criteria %}
+                            <li>{{ ac }}</li>
+                        {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p style="margin-top: 20px;">
+            <a href="/download">Download as CSV</a> |
+            <a href="/">Back</a>
+        </p>
+    {% else %}
+        <p>No UATs generated.</p>
+        <p><a href="/">Back</a></p>
+    {% endif %}
+</body>
+</html>

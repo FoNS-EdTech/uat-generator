@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+    <title>UAT Generator</title>
+</head>
+<body>
+    <h1>UAT Generator (Local Prototype)</h1>
+
+    <form action="/generate" method="post" enctype="multipart/form-data">
+        <h2>1. Source Type</h2>
+        <label>
+            <input type="radio" name="source_type" value="web" checked>
+            Web help center (URL)
+        </label><br>
+        <label>
+            <input type="radio" name="source_type" value="pdf">
+            PDF manual (upload)
+        </label>
+
+        <h2>2. Role Hint (optional)</h2>
+        <select name="role_hint">
+            <option value="">Auto-detect</option>
+            <option value="end-user">End-user</option>
+            <option value="admin">Admin</option>
+        </select>
+
+        <div id="web-input" style="margin-top: 20px;">
+            <h2>3a. Web Input</h2>
+            <label>Base URL:</label>
+            <input type="text" name="base_url" style="width: 400px;" placeholder="https://docs.example.com/page">
+        </div>
+
+        <div id="pdf-input" style="margin-top: 20px; display:none;">
+            <h2>3b. PDF Input</h2>
+            <label>Upload PDF:</label>
+            <input type="file" name="pdf_file" accept="application/pdf">
+        </div>
+
+        <div style="margin-top: 20px;">
+            <button type="submit">Generate UATs</button>
+        </div>
+    </form>
+
+    <script>
+        const webRadio = document.querySelector('input[value="web"]');
+        const pdfRadio = document.querySelector('input[value="pdf"]');
+        const webInput = document.getElementById('web-input');
+        const pdfInput = document.getElementById('pdf-input');
+
+        function updateInputs() {
+            if (webRadio.checked) {
+                webInput.style.display = 'block';
+                pdfInput.style.display = 'none';
+            } else {
+                webInput.style.display = 'none';
+                pdfInput.style.display = 'block';
+            }
+        }
+
+        webRadio.addEventListener('change', updateInputs);
+        pdfRadio.addEventListener('change', updateInputs);
+        updateInputs();
+    </script>
+</body>
+</html>
